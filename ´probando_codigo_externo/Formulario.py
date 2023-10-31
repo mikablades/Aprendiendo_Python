@@ -2,6 +2,14 @@
 # @autor: Magno Efren
 # Youtube: https://www.youtube.com/c/MagnoEfren
 
+"""
+	1. a este codigo me gustaria agregarle una funcion para ir agregando datos sin requerir
+	crear un archivo nuevo
+	2. me gustaria cambiar la interfaz grafica por una que se adecue mas a mi objetivo
+	3. quiero agregarle un retorno en grafico del seguimiento de los datos entregados
+	4. quiero cambiar el metodo de entrada a opciones predefinidas para generar estadistica
+	"""
+
 from tkinter import Tk, Label, Button,Entry, Frame, END
 import pandas as pd
 
