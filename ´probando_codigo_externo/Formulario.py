@@ -20,7 +20,7 @@ ventana.resizable(0,0)
 ventana.title('Guardar datos en Excel')
 nombre1,apellido1,edad1,correo1,telefono1 = [],[],[],[],[]
 
-def agregar_datos():
+def agregar_datos(): #esta funcion ingresa los datos
 	global nombre1, apellido1, dni1, correo1, telefono1
 
 	nombre1.append(ingresa_nombre.get())
@@ -35,7 +35,7 @@ def agregar_datos():
 	ingresa_correo.delete(0,END)
 	ingresa_telefono.delete(0,END)
 
-def guardar_datos():	
+def guardar_datos(): #esta funcion guarda los datos	
 	global nombre1,apellido1,edad1,correo1,telefono1
 	datos = {'Nombres':nombre1,'Apellidos':apellido1, 'Edad':edad1, 'Correo':correo1, 'Telefono':telefono1 } 
 	nom_excel  = str(nombre_archivo.get() + ".xlsx")	
