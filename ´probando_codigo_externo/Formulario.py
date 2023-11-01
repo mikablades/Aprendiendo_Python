@@ -21,6 +21,30 @@ ventana.title('Guardar datos en Excel')
 nombre1, apellido1, edad1, correo1, telefono1 = [], [], [], [], []
 
 
+def get_data(file):
+    data = pd.read_excel(file)
+    return data
+
+def get_empty_row(data):
+    for i in range(len(data.index)+1):
+        row = data.loc[i]
+        if row.isnull().all():
+            return row.name
+    return len(data.index)
+
+def save_data(data, file):
+    writer = pd.ExcelWriter(file, engine='openpyxl')
+    data.to_excel(writer, index=False)
+    writer.save()
+    
+def add_data(file, new_data):
+    data = get_data(file)
+    empty_row = get_empty_row(data)
+    for i, col in enumerate(data.columns):
+        data.at[empty_row, col] = new_data[i]
+    save_data(data, file)
+
+
 def agregar_datos():
 	global nombre1, apellido1, dni1, correo1, telefono1
 	nombre1.append(ingresa_nombre.get())
