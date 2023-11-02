@@ -4,6 +4,11 @@ import openpyxl
 from ttkthemes import ThemedStyle
 
 class FormularioApp:
+    """_summary_
+    Formulario de test donde los datos se guardan en la ultima fila disponible
+    no son reemplazados y de momento puedes tiene un boton para aunlar la ultima
+    entada.
+    """
     def __init__(self, root):
         self.root = root
         root.title("Formulario")
@@ -24,6 +29,9 @@ class FormularioApp:
         self.create_gui()
 
     def create_gui(self):
+        """_summary_
+        Interfaz grafica (aun no me decido por el estilo, hay mas estilos para tk?)
+        """
         self.marco = ttk.Frame(self.root)
         self.marco.pack(padx=10, pady=10, fill="both", expand=True)
 
@@ -48,7 +56,8 @@ class FormularioApp:
         self.boton_guardar.grid(row=2, column=0, padx=5, pady=10)
         style.configure("TButton", borderwidth=0, padding=5, relief="flat")
 
-        self.boton_anular = ttk.Button(self.marco, text="Anular última entrada", command=self.anular_ultima_entrada)
+        self.boton_anular = ttk.Button(self.marco, text="Anular última entrada",
+                                       command=self.anular_ultima_entrada)
         self.boton_anular.grid(row=2, column=1, padx=5, pady=10)
 
         columnas = ("Nombre", "Edad")
@@ -62,6 +71,9 @@ class FormularioApp:
             self.lista_datos.insert("", "end", values=fila)
 
     def guardar_datos(self):
+        """_summary_
+        Guarda los datos
+        """
         nombre = self.entry_nombre.get()
         edad = self.entry_edad.get()
 
@@ -74,6 +86,9 @@ class FormularioApp:
         self.entry_edad.delete(0, "end")
 
     def anular_ultima_entrada(self):
+        """_summary_
+        borra el ultimo dato de cada columna
+        """
         if self.hoja.max_row > 1:
             self.hoja.delete_rows(self.hoja.max_row)
             self.lista_datos.delete(*self.lista_datos.get_children())
@@ -82,5 +97,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = FormularioApp(root)
     root.mainloop()
-
-
