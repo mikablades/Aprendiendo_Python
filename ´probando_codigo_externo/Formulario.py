@@ -44,6 +44,7 @@ def add_data(file, new_data):
         data.at[empty_row, col] = new_data[i]
     save_data(data, file)
 
+# add_data("prueba.xlsx", ["nuevo_dato1", "nuevo_dato2", "nuevo_dato3"])
 
 def agregar_datos():
 	global nombre1, apellido1, dni1, correo1, telefono1
