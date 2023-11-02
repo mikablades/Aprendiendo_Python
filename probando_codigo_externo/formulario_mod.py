@@ -8,9 +8,11 @@ from ttkthemes import ThemedStyle
 
 class FormularioApp:
     """_summary_
-    Formulario de test donde los datos se guardan en la ultima fila disponible
-    no son reemplazados y de momento puedes tiene un boton para aunlar la ultima
-    entada.
+    1. lee o crea un .xlsx
+    2. agrega encabezados
+    3. agrega datos
+    4. guarda datos sin reemplazar los preexistentes
+    5. anula la ultima entrada
     """
     def __init__(self, root):
         self.root = root
@@ -27,7 +29,7 @@ class FormularioApp:
 
         # Si la hoja está vacía, agregar encabezados
         if self.hoja.max_row == 1:
-            self.hoja.append(["Nombre", "Edad"])
+            self.hoja.append(["Nombre", "Edad", "Rut"])
 
         self.create_gui()
 
@@ -42,28 +44,34 @@ class FormularioApp:
         style.set_theme("scidgreen")
 
         self.marco["style"] = "Scidgreen.TFrame"
-
+        #nombre
         self.etiqueta_nombre = ttk.Label(self.marco, text="Nombre:")
         self.etiqueta_nombre.grid(row=0, column=0, padx=5, pady=5, sticky="w")
 
         self.entry_nombre = ttk.Entry(self.marco)
         self.entry_nombre.grid(row=0, column=1, padx=5, pady=5)
+        #rut
+        self.etiqueta_rut = ttk.Label(self.marco, text="Rut:")
+        self.etiqueta_rut.grid(row=1, column=0, padx=5, pady=5, sticky="w")
 
+        self.entry_rut = ttk.Entry(self.marco)
+        self.entry_rut.grid(row=1, column=1, padx=5, pady=5)
+        #edad
         self.etiqueta_edad = ttk.Label(self.marco, text="Edad:")
-        self.etiqueta_edad.grid(row=1, column=0, padx=5, pady=5, sticky="w")
+        self.etiqueta_edad.grid(row=2, column=0, padx=5, pady=5, sticky="w")
 
         self.entry_edad = ttk.Entry(self.marco)
-        self.entry_edad.grid(row=1, column=1, padx=5, pady=5)
-
+        self.entry_edad.grid(row=2, column=1, padx=5, pady=5)
+        #boton "guardar"
         self.boton_guardar = ttk.Button(self.marco, text="Guardar", command=self.guardar_datos)
-        self.boton_guardar.grid(row=2, column=0, padx=5, pady=10)
+        self.boton_guardar.grid(row=4, column=0, padx=5, pady=10)
         style.configure("TButton", borderwidth=0, padding=5, relief="flat")
-
+        #boton "anular"
         self.boton_anular = ttk.Button(self.marco, text="Anular última entrada",
                                        command=self.anular_ultima_entrada)
-        self.boton_anular.grid(row=2, column=1, padx=5, pady=10)
-
-        columnas = ("Nombre", "Edad")
+        self.boton_anular.grid(row=4, column=1, padx=5, pady=10)
+        #lista de datos en pantalla
+        columnas = ("Nombre", "Edad", "Rut")
         self.lista_datos = ttk.Treeview(self.marco, columns=columnas, show="headings")
         for columna in columnas:
             self.lista_datos.heading(columna, text=columna)
@@ -79,14 +87,16 @@ class FormularioApp:
         """
         nombre = self.entry_nombre.get()
         edad = self.entry_edad.get()
+        rut = self.entry_rut.get()
 
-        fila = [nombre, edad]
+        fila = [nombre, edad, rut]
         self.hoja.append(fila)
         self.archivo_excel.save("datos.xlsx")
 
-        self.lista_datos.insert("", "end", values=(nombre, edad))
+        self.lista_datos.insert("", "end", values=(nombre, edad, rut))
         self.entry_nombre.delete(0, "end")
         self.entry_edad.delete(0, "end")
+        self.entry_rut.delete(0, "end")
 
     def anular_ultima_entrada(self):
         """_summary_
