@@ -37,13 +37,14 @@ class FormularioApp:
         """_summary_
         Interfaz grafica (aun no me decido por el estilo, hay mas estilos para tk?)
         """
+        #marco
         self.marco = ttk.Frame(self.root)
         self.marco.pack(padx=1, pady=1, fill="both", expand=True)
 
         style = ThemedStyle(self.root)
-        style.set_theme("scidgreen")
+        style.set_theme("black")
 
-        self.marco["style"] = "Scidgreen.TFrame"
+        self.marco["style"] = "Black.TFrame"
         #nombre
         self.etiqueta_nombre = ttk.Label(self.marco, text="Nombre:")
         self.etiqueta_nombre.grid(row=0, column=0, padx=5, pady=5, sticky="w")
@@ -62,6 +63,7 @@ class FormularioApp:
 
         self.entry_edad = ttk.Entry(self.marco)
         self.entry_edad.grid(row=2, column=1, padx=5, pady=5)
+
         #boton "guardar"
         self.boton_guardar = ttk.Button(self.marco, text="Guardar", command=self.guardar_datos)
         self.boton_guardar.grid(row=4, column=0, padx=5, pady=10)
