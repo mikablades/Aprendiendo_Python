@@ -29,7 +29,7 @@ class FormularioApp:
 
         # Si la hoja está vacía, agregar encabezados
         if self.hoja.max_row == 1:
-            self.hoja.append(["Nombre", "Edad", "Rut"])
+            self.hoja.append(["Nombre", "Edad", "Rut", "Genero"])
 
         self.create_gui()
 
@@ -63,22 +63,30 @@ class FormularioApp:
 
         self.entry_edad = ttk.Entry(self.marco)
         self.entry_edad.grid(row=2, column=1, padx=5, pady=5)
+        #Genero
+        self.etiqueta_genero = ttk.Label(self.marco, text="Genero:")
+        self.etiqueta_genero.grid(row=3, column=0, padx=5, pady=5, sticky="w")
+
+        self.combo_genero = ttk.Combobox(self.marco,
+                                         state="Readonli",
+                                         values=["hombre", "mujer", "no binario", "genero fluido"])
+        self.combo_genero.grid(row=3, column=1, padx=5, pady=5)
 
         #boton "guardar"
         self.boton_guardar = ttk.Button(self.marco, text="Guardar", command=self.guardar_datos)
-        self.boton_guardar.grid(row=4, column=0, padx=5, pady=10)
+        self.boton_guardar.grid(row=5, column=0, padx=5, pady=10)
         style.configure("TButton", borderwidth=0, padding=5, relief="flat")
         #boton "anular"
         self.boton_anular = ttk.Button(self.marco, text="Anular última entrada",
                                        command=self.anular_ultima_entrada)
-        self.boton_anular.grid(row=4, column=1, padx=5, pady=10)
+        self.boton_anular.grid(row=5, column=1, padx=5, pady=10)
         #lista de datos en pantalla
         columnas = ("Nombre", "Edad", "Rut")
         self.lista_datos = ttk.Treeview(self.marco, columns=columnas, show="headings")
         for columna in columnas:
             self.lista_datos.heading(columna, text=columna)
             self.lista_datos.column(columna, width=100)
-        self.lista_datos.grid(row=3, column=0, columnspan=2, padx=5, pady=5)
+        self.lista_datos.grid(row=4, column=0, columnspan=2, padx=5, pady=5)
 
         for fila in self.hoja.iter_rows(min_row=2, values_only=True):
             self.lista_datos.insert("", "end", values=fila)
@@ -90,12 +98,13 @@ class FormularioApp:
         nombre = self.entry_nombre.get()
         edad = self.entry_edad.get()
         rut = self.entry_rut.get()
+        genero = self.combo_genero.get()
 
-        fila = [nombre, edad, rut]
+        fila = [nombre, edad, rut, genero]
         self.hoja.append(fila)
         self.archivo_excel.save("datos.xlsx")
 
-        self.lista_datos.insert("", "end", values=(nombre, edad, rut))
+        self.lista_datos.insert("", "end", values=(nombre, edad, rut, genero))
         self.entry_nombre.delete(0, "end")
         self.entry_edad.delete(0, "end")
         self.entry_rut.delete(0, "end")

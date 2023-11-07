@@ -22,5 +22,5 @@ def new_max(n1=int, n2=int):
     else:
         return n1    
     
-resultado = new_max (45,8)
+resultado = new_max (-68,-1)
 print (resultado)
