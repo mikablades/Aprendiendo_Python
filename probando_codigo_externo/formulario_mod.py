@@ -45,6 +45,17 @@ class FormularioApp:
         style.set_theme("black")
 
         self.marco["style"] = "Black.TFrame"
+        #Menu
+        self.barra_menus = tk.Menu(self.root)
+        self.root.config(menu=self.barra_menus)
+
+        self.menu_archivo = tk.Menu(self.barra_menus, tearoff=False)
+        self.barra_menus.add_cascade(menu=self.menu_archivo, label="Archivo")
+
+        self.menu_ayuda = tk.Menu(self.barra_menus, tearoff=False)
+        self.barra_menus.add_cascade(menu=self.menu_ayuda, label="Ayuda")
+
+        self.menu_archivo.add_command(label="Nuevo", accelerator="Ctrl+N", command=self.root)
         #nombre
         self.etiqueta_nombre = ttk.Label(self.marco, text="Nombre:")
         self.etiqueta_nombre.grid(row=0, column=0, padx=5, pady=5, sticky="w")
@@ -81,7 +92,7 @@ class FormularioApp:
                                        command=self.anular_ultima_entrada)
         self.boton_anular.grid(row=5, column=1, padx=5, pady=10)
         #lista de datos en pantalla
-        columnas = ("Nombre", "Edad", "Rut")
+        columnas = ("Nombre", "Edad", "Rut", "Genero")
         self.lista_datos = ttk.Treeview(self.marco, columns=columnas, show="headings")
         for columna in columnas:
             self.lista_datos.heading(columna, text=columna)
@@ -108,6 +119,7 @@ class FormularioApp:
         self.entry_nombre.delete(0, "end")
         self.entry_edad.delete(0, "end")
         self.entry_rut.delete(0, "end")
+        self.combo_genero.delete(0, "end")
 
     def anular_ultima_entrada(self):
         """_summary_
