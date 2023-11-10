@@ -6,6 +6,7 @@ from tkinter import ttk
 import openpyxl
 from ttkthemes import ThemedStyle
 
+
 class FormularioApp:
     """_summary_
     1. lee o crea un .xlsx
@@ -14,7 +15,23 @@ class FormularioApp:
     4. guarda datos sin reemplazar los preexistentes
     5. anula la ultima entrada
     """
+
     def __init__(self, root):
+        self.lista_datos = None
+        self.boton_anular = None
+        self.boton_guardar = None
+        self.combo_genero = None
+        self.etiqueta_genero = None
+        self.entry_edad = None
+        self.etiqueta_edad = None
+        self.entry_rut = root
+        self.etiqueta_rut = root
+        self.entry_nombre = root
+        self.etiqueta_nombre = root
+        self.menu_ayuda = root
+        self.menu_archivo = root
+        self.barra_menus = root
+        self.marco = root
         self.root = root
         root.title("Formulario")
 
@@ -35,9 +52,9 @@ class FormularioApp:
 
     def create_gui(self):
         """_summary_
-        Interfaz grafica (aun no me decido por el estilo, hay mas estilos para tk?)
+        Interfaz gráfica (aún no me decido por el estilo, ¿hay más estilos para tk?)
         """
-        #marco
+        # marco
         self.marco = ttk.Frame(self.root)
         self.marco.pack(padx=1, pady=1, fill="both", expand=True)
 
@@ -45,7 +62,7 @@ class FormularioApp:
         style.set_theme("black")
 
         self.marco["style"] = "Black.TFrame"
-        #Menu
+        # Menu
         self.barra_menus = tk.Menu(self.root)
         self.root.config(menu=self.barra_menus)
 
@@ -56,42 +73,42 @@ class FormularioApp:
         self.barra_menus.add_cascade(menu=self.menu_ayuda, label="Ayuda")
 
         self.menu_archivo.add_command(label="Nuevo", accelerator="Ctrl+N", command=self.root)
-        #nombre
+        # nombre
         self.etiqueta_nombre = ttk.Label(self.marco, text="Nombre:")
         self.etiqueta_nombre.grid(row=0, column=0, padx=5, pady=5, sticky="w")
 
         self.entry_nombre = ttk.Entry(self.marco)
         self.entry_nombre.grid(row=0, column=1, padx=5, pady=5)
-        #rut
+        # rut
         self.etiqueta_rut = ttk.Label(self.marco, text="Rut:")
         self.etiqueta_rut.grid(row=1, column=0, padx=5, pady=5, sticky="w")
 
         self.entry_rut = ttk.Entry(self.marco)
         self.entry_rut.grid(row=1, column=1, padx=5, pady=5)
-        #edad
+        # edad
         self.etiqueta_edad = ttk.Label(self.marco, text="Edad:")
         self.etiqueta_edad.grid(row=2, column=0, padx=5, pady=5, sticky="w")
 
         self.entry_edad = ttk.Entry(self.marco)
         self.entry_edad.grid(row=2, column=1, padx=5, pady=5)
-        #Genero
+        # Genero
         self.etiqueta_genero = ttk.Label(self.marco, text="Genero:")
         self.etiqueta_genero.grid(row=3, column=0, padx=5, pady=5, sticky="w")
 
         self.combo_genero = ttk.Combobox(self.marco,
-                                         state="Readonli",
+                                         state="readonly",
                                          values=["hombre", "mujer", "no binario", "genero fluido"])
         self.combo_genero.grid(row=3, column=1, padx=5, pady=5)
 
-        #boton "guardar"
+        # boton "guardar"
         self.boton_guardar = ttk.Button(self.marco, text="Guardar", command=self.guardar_datos)
         self.boton_guardar.grid(row=5, column=0, padx=5, pady=10)
         style.configure("TButton", borderwidth=0, padding=5, relief="flat")
-        #boton "anular"
+        # boton "anular"
         self.boton_anular = ttk.Button(self.marco, text="Anular última entrada",
                                        command=self.anular_ultima_entrada)
         self.boton_anular.grid(row=5, column=1, padx=5, pady=10)
-        #lista de datos en pantalla
+        # lista de datos en pantalla
         columnas = ("Nombre", "Edad", "Rut", "Genero")
         self.lista_datos = ttk.Treeview(self.marco, columns=columnas, show="headings")
         for columna in columnas:
@@ -129,8 +146,8 @@ class FormularioApp:
             self.hoja.delete_rows(self.hoja.max_row)
             self.lista_datos.delete(*self.lista_datos.get_children())
 
+
 if __name__ == "__main__":
     ventana_principal = tk.Tk()
     app = FormularioApp(ventana_principal)
     ventana_principal.mainloop()
-    
