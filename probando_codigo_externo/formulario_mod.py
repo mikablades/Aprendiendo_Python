@@ -17,13 +17,13 @@ class FormularioApp:
     """
 
     def __init__(self, root):
-        self.lista_datos = None
-        self.boton_anular = None
-        self.boton_guardar = None
-        self.combo_genero = None
-        self.etiqueta_genero = None
-        self.entry_edad = None
-        self.etiqueta_edad = None
+        self.lista_datos = root
+        self.boton_anular = root
+        self.boton_guardar = root
+        self.combo_genero = root
+        self.etiqueta_genero = root
+        self.entry_edad = root
+        self.etiqueta_edad = root
         self.entry_rut = root
         self.etiqueta_rut = root
         self.entry_nombre = root
