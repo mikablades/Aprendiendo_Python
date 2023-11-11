@@ -73,6 +73,7 @@ class FormularioApp:
         self.barra_menus.add_cascade(menu=self.menu_ayuda, label="Ayuda")
 
         self.menu_archivo.add_command(label="Nuevo", accelerator="Ctrl+N", command=self.root)
+        self.menu_ayuda.add_command(label="ayudaaa!", accelerator="Ctrl+Y", command=self.root)
         # nombre
         self.etiqueta_nombre = ttk.Label(self.marco, text="Nombre:")
         self.etiqueta_nombre.grid(row=0, column=0, padx=5, pady=5, sticky="w")
